@@ -1,3 +1,11 @@
+@import "variables";
+
+@import "resets";
+@import "footer";
+@import "form";
+@import "header";
+
+
 body {
     display: flex;
     flex-direction: column;
@@ -9,6 +17,6 @@ main {
 }
 
 section {
-    max-width: 800px;
+    max-width: $sectionMaxWidth;
     margin: 50px auto;
 }
