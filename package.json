@@ -36,9 +36,13 @@
     "eslint-webpack-plugin": "^2.5.4",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",
+    "mini-css-extract-plugin": "^1.6.0",
     "node-sass": "^5.0.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
     "sass-loader": "^11.0.1",
     "style-loader": "^2.0.0",
-    "webpack-dev-server": "4.0.0-beta.2"
+    "terser-webpack-plugin": "^5.1.1",
+    "webpack-dev-server": "4.0.0-beta.2",
+    "workbox-webpack-plugin": "^6.1.5"
   }
 }
