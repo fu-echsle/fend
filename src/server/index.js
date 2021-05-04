@@ -3,7 +3,6 @@ const express = require('express');
 const mockAPIResponse = require('./mockAPI.js');
 
 const app = express();
-
 app.use(express.static('dist'));
 
 const bodyParser = require('body-parser');
@@ -12,7 +11,6 @@ const corsOptions = {
     origin: 'http://localhost:8080',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
-
 app.use(cors(corsOptions));
 
 app.use(bodyParser.urlencoded({extended: false}));
