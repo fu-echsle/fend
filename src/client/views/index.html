@@ -1,39 +1,66 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>Test</title>
-        <script>
-            if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('./service-worker.js');
-                });
-            }
-        </script>
-    </head>
-    <body>
-        <header>
-            <div class="">
-                Logo
-            </div>
-            <div class="">
-                navigation
-            </div>
-        </header>
-        <main>
-            <section>
-                <form class="" onsubmit="return Client.handleSubmit(event)">
-                    <input id="name" type="text" name="input" value="" onblur="onBlur()" placeholder="Name">
-                    <input type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">
-                </form>
-            </section>
-            <section>
-                <strong>Form Results:</strong>
-                <div id="results"></div>
-            </section>
-        </main>
-        <footer>
-            <p>This is a footer</p>
-        </footer>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="icon.ico"/>
+    <link rel="icon" type="image/png" href="icon-32.png" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="icon-96.png" sizes="96x96"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png"/>
+    <title>Test</title>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js');
+            });
+        }
+    </script>
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="logo.svg" alt="Logo" title="Logo Yvonne Vogt"/>
+    </div>
+    <div class="nav">
+    </div>
+</header>
+<main>
+    <section>
+        <h1>Text analyzer</h1>
+        <form class="" onsubmit="return Client.handleSubmit(event)">
+            <p>
+                Enter the URL you want to analyze ...
+            </p>
+            <input id="url" type="text" name="url" value="" placeholder="Article URL">
+            <p>
+                ... and specify how many sentences you want the result to be summarized to.
+            </p>
+            <select id="sentences" name="sentences">
+                <option value="5">5 (condensed down, might not be the best result)</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10 (might be too verbose)</option>
+            </select>
+            <input type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)"
+                   onsubmit="return Client.handleSubmit(event)">
+        </form>
+    </section>
+    <section>
+        <div id="results">
+            <h1>Detected Language:</h1>
+            <p id="language"></p>
+            <h1>Summary:</h1>
+            <p id="summary"></p>
+        </div>
+        <div id="spinner">
+            <p>Loading, please wait ...</p>
+            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </div>
+    </section>
+</main>
+<footer>
+    <p>&copy; 2021 Yvonne Vogt</p>
+</footer>
+</body>
 </html>
