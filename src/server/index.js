@@ -19,8 +19,9 @@ app.use(cors(corsOptions));
 
 const fetch = require('node-fetch');
 const async = require("async");
+
 const api_key = process.env.API_KEY;
-const api_base_url = process.env.API_BASE_URL;
+const api_base_url = "https://api.meaningcloud.com/";
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
