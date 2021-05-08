@@ -12,7 +12,7 @@ function handleSubmit(event) {
     resultContainer.style.display = 'none';
     spinnerContainer.style.display = 'inherit';
 
-    console.log("::: Form Submitted :::");
+    console.log('::: Form Submitted :::');
     fetch('http://localhost:8081/summarize', {
         method: 'POST',
         credentials: 'same-origin',
@@ -42,4 +42,4 @@ function handleSubmit(event) {
         });
 }
 
-export {handleSubmit}
+export {handleSubmit};
