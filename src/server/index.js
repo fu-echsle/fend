@@ -1,27 +1,41 @@
 const path = require('path');
 const express = require('express');
-const errorResponse = require('./exports/errorResponse');
-const parsingResult = require('./exports/parsingResult');
-
-const dotenv = require('dotenv');
-dotenv.config();
+const errorResponse = require('./responses/errorResponse');
+const parsingResponse = require('./responses/parsingResponse');
 
 const app = express();
 app.use(express.static('dist'));
 
+/**
+ * Load .env files to handle server specific settings.
+ */
+const dotenv = require('dotenv');
+dotenv.config();
+
 const bodyParser = require('body-parser');
+
 const cors = require('cors');
 const corsOptions = {
-    origin: 'http://localhost:8080',
+    origin: process.env.FRONTEND_URL,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 app.use(cors(corsOptions));
 
 const fetch = require('node-fetch');
-const async = require("async");
+const async = require('async');
+
+/**
+ * routes/endpoints
+*/
+const geonames = require('./routes/geonames');
+const pixabay = require('./routes/pixabay');
+const weatherbit = require('./routes/weatherbit');
+app.use('/geonames', geonames);
+app.use('/pixabay', pixabay);
+app.use('/weatherbit', weatherbit);
 
 const api_key = process.env.API_KEY;
-const api_base_url = "https://api.meaningcloud.com/";
+const api_base_url = 'https://api.meaningcloud.com/';
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -29,19 +43,19 @@ app.use(bodyParser.json());
 console.log(__dirname);
 
 // designates what port the app will listen to for incoming requests
-app.listen(8081, function () {
+app.listen(8081,  () => {
     console.log('Example app listening on port 8081!');
 });
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
     res.sendFile('dist/index.html');
 });
 
-app.get('/health', function (req, res) {
+app.get('/health', (req, res) =>  {
     res.send({message: "I'm healthy. How about you?"})
 });
 
-app.post('/sentiment', async function (req, res) {
+app.post('/sentiment', async (req, res) =>  {
     console.log(req.body);
     res.type('json');
 
@@ -51,7 +65,7 @@ app.post('/sentiment', async function (req, res) {
         const response = await fetch(fetchUrl, {method: "POST"});
         try {
             const result = await response.json();
-            if (result.status.code === "0") {
+            if (result.status.code === '0') {
                 console.log(`Credits left: ${result.status.remaining_credits}`);
                 console.log(`Credits used: ${result.status.credits}`);
                 res.send({
@@ -75,10 +89,10 @@ app.post('/sentiment', async function (req, res) {
     }
 });
 
-app.post('/summarize', async function (req, res) {
+app.post('/summarize', async (req, res) =>  {
     console.log(`URL param: ${req.body.url}`);
     res.type('json');
-    const analysisResult = parsingResult.create("unknown", "");
+    const analysisResult = parsingResponse.create('unknown', '');
 
     if (req.body.url && req.body.url.trim() !== '') {
         // Start the analysis process.
@@ -99,7 +113,7 @@ app.post('/summarize', async function (req, res) {
             try {
                 // Combine the results of the language detection and the summarization.
                 const result = await response.json();
-                if (result.status.code === "0") {
+                if (result.status.code === '0') {
                     console.log(`Credits left: ${result.status.remaining_credits}`);
                     console.log(`Credits used: ${result.status.credits}`);
                     analysisResult.summary = result.summary;
