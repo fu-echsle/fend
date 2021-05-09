@@ -7,9 +7,9 @@
   },
   "scripts": {
     "test": "jest",
+    "dev": "node src/server/index.js & webpack serve --config webpack.dev.js --open"
     "start": "node src/server/index.js",
-    "build-prod": "webpack --config webpack.prod.js",
-    "build-dev": "node src/server/index.js & webpack serve --config webpack.dev.js --open"
+    "build": "webpack --config webpack.prod.js",
   },
   "keywords": [],
   "author": "",
