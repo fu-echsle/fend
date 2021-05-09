@@ -25,12 +25,32 @@
 </header>
 <main>
     <section>
+        <h1>Sentiment analyzer</h1>
+        <form onsubmit="return Client.handleSentiment(event)">
+            <p>
+                Enter the text to analyze ...
+            </p>
+            <input type="text" id="text" name="text" value="" placeholder="Text to analyze"/>
+            <p>
+                ... and select the language of your text.
+            </p>
+            <select id="sentimentLanguage" name="sentimentLanguage">
+                <option value="en">English</option>
+                <option value="de">German</option>
+                <option value="fr">French</option>
+                <option value="it">Italian</option>
+            </select>
+            <input type="submit" name="" value="submit" onclick="return Client.handleSentiment(event)"
+                   onsubmit="return Client.handleSentiment(event)">
+        </form>
+    </section>
+    <section>
         <h1>Text analyzer</h1>
-        <form class="" onsubmit="return Client.handleSubmit(event)">
+        <form class="" onsubmit="return Client.handleSummarization(event)">
             <p>
                 Enter the URL you want to analyze ...
             </p>
-            <input id="url" type="text" name="url" value="" placeholder="Article URL">
+            <input id="url" type="text" name="url" value="" placeholder="Article URL"/>
             <p>
                 ... and specify how many sentences you want the result to be summarized to.
             </p>
@@ -42,16 +62,19 @@
                 <option value="9">9</option>
                 <option value="10">10 (might be too verbose)</option>
             </select>
-            <input type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)"
-                   onsubmit="return Client.handleSubmit(event)">
+            <input type="submit" name="" value="submit" onclick="return Client.handleSummarization(event)"
+                   onsubmit="return Client.handleSummarization(event)">
         </form>
     </section>
     <section>
-        <div id="results">
+        <div class="summary result">
             <h1>Detected Language:</h1>
             <p id="language"></p>
             <h1>Summary:</h1>
             <p id="summary"></p>
+        </div>
+        <div class="sentiment result">
+            sentiment
         </div>
         <div id="spinner">
             <p>Loading, please wait ...</p>

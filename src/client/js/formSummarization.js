@@ -1,15 +1,17 @@
-function handleSubmit(event) {
+function handleSummarization(event) {
     event.preventDefault();
 
     // check what text was put into the form field
     const url = document.getElementById('url').value;
     const sentences = document.getElementById('sentences').value;
-    const resultContainer = document.getElementById('results');
+    const resultContainer = document.querySelector('.summary.result');
     const spinnerContainer = document.getElementById('spinner');
     const language = document.getElementById('language');
     const summary = document.getElementById('summary');
 
-    resultContainer.style.display = 'none';
+    document.querySelectorAll('.result').forEach(it => {
+        it.style.display = 'none';
+    });
     spinnerContainer.style.display = 'inherit';
 
     console.log('::: Form Submitted :::');
@@ -42,4 +44,4 @@ function handleSubmit(event) {
         });
 }
 
-export {handleSubmit};
+export {handleSummarization};

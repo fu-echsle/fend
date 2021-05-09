@@ -37,5 +37,8 @@ This will start the service on http://localhost:8081 for you.
 You can run the tests with `yarn test`. There is only one test at the moment, and it doesn't do much. But it's there at least.
 
 ## Some last words ...
+The first part uses a sentiment analysis that I could not force seeing irony no matter how hard I tried. 
+I guess irony is still too much to ask an AI for.  
+
 Next to the Language Detection API, I'm using the summarization API to condense the article to some sentences. 
 The results are ... not the best possible. Don't shoot the messenger, I'm just fetching the API.

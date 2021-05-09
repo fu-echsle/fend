@@ -41,6 +41,40 @@ app.get('/health', function (req, res) {
     res.send({message: "I'm healthy. How about you?"})
 });
 
+app.post('/sentiment', async function (req, res) {
+    console.log(req.body);
+    res.type('json');
+
+    if (req.body.txt && req.body.txt.trim() !== '') {
+        const fetchUrl = `${api_base_url}sentiment-2.1?key=${api_key}&txt=${req.body.txt}&lang=${req.body.language}`;
+        console.log(fetchUrl);
+        const response = await fetch(fetchUrl, {method: "POST"});
+        try {
+            const result = await response.json();
+            if (result.status.code === "0") {
+                console.log(`Credits left: ${result.status.remaining_credits}`);
+                console.log(`Credits used: ${result.status.credits}`);
+                res.send({
+                    agreement: result.agreement,
+                    subjectivity: result.subjectivity,
+                    confidence: result.confidence,
+                    irony: result.irony,
+                    sentenceCount: result.sentence_list.length,
+                    sentimentEntities: result.sentimented_entity_list.length
+                });
+            } else {
+                res.send(errorResponse.create(`Something went wrong. Status code: ${result.status.code}`));
+            }
+        } catch (e) {
+            console.log('Could not fetch sentiment result. Error:');
+            console.log(e);
+            res.send(errorResponse.create(`Unexpected error occurred. See logs for more details.`));
+        }
+    } else {
+        res.send(errorResponse.create(`Could not parse params`));
+    }
+});
+
 app.post('/summarize', async function (req, res) {
     console.log(`URL param: ${req.body.url}`);
     res.type('json');
