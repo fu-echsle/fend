@@ -71,7 +71,7 @@ app.post('/sentiment', async function (req, res) {
             res.send(errorResponse.create(`Unexpected error occurred. See logs for more details.`));
         }
     } else {
-        res.send(errorResponse.create(`Could not parse params`));
+        res.send(errorResponse.create(`Could not parse params. Did you provide an example text?`));
     }
 });
 
@@ -118,6 +118,6 @@ app.post('/summarize', async function (req, res) {
             res.send(errorResponse.create(`Unexpected error occurred. See logs for more details.`));
         }
     } else {
-        res.send(errorResponse.create(`Could not parse params`));
+        res.send(errorResponse.create(`Could not parse params. Did you specify the URL?`));
     }
 });

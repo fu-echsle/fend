@@ -31,11 +31,16 @@ function handleSummarization(event) {
             return res.json();
         })
         .then(function (res) {
-            language.textContent = res.language;
-            summary.textContent = res.summary;
+            if(res.error) {
+                spinnerContainer.style.display = 'none';
+                alert(`The server returned an error message: ${res.error}`);
+            } else {
+                language.textContent = res.language;
+                summary.textContent = res.summary;
 
-            resultContainer.style.display = 'inherit';
-            spinnerContainer.style.display = 'none';
+                resultContainer.style.display = 'inherit';
+                spinnerContainer.style.display = 'none';
+            }
         })
         .catch(reason => {
             resultContainer.style.display = 'none';

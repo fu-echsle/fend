@@ -29,11 +29,15 @@ function handleSentiment(event) {
             return res.json();
         })
         .then(function (res) {
-            //{"agreement":"AGREEMENT","subjectivity":"SUBJECTIVE","confidence":"92","irony":"NONIRONIC"}
-            resultContainer.textContent = analyzeResult(res);
+            if(res.error) {
+                spinnerContainer.style.display = 'none';
+                alert(`The server returned an error message: ${res.error}`);
+            } else {
+                resultContainer.textContent = analyzeResult(res);
 
-            resultContainer.style.display = 'inherit';
-            spinnerContainer.style.display = 'none';
+                resultContainer.style.display = 'inherit';
+                spinnerContainer.style.display = 'none';
+            }
         })
         .catch(reason => {
             resultContainer.style.display = 'none';
