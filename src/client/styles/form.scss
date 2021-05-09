@@ -1,0 +1,16 @@
+form {
+    border: 1px solid $cBorder;
+    border-radius: 3px;
+    padding: 40px;
+
+    input, select {
+        padding: 5px;
+        width: 100%;
+        line-height: 16px;
+        margin: 10px 0;
+        box-sizing: border-box;
+        background-color: $cLight;
+        border-radius: 5px;
+        color: $cDark;
+    }
+}
