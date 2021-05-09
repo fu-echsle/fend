@@ -1,5 +1,5 @@
 const errorResponse = require('../responses/errorResponse');
-const geonameResponse = require('../responses/geonameResponse');
+const weatherbitResponse = require('../responses/weatherbitResponse');
 
 const express = require('express');
 const router = express.Router();
@@ -14,39 +14,39 @@ router.use(bodyParser.urlencoded({extended: false}));
 router.use(bodyParser.json());
 
 router.use((req, res, next) => {
-    console.log(`Called geonames with path: ${req.baseUrl} and method: ${req.method}`);
+    console.log(`Called weatherbit with path: ${req.baseUrl} and method: ${req.method}`);
     next();
 });
 
 const apiKey = process.env.WEATHERBIT_API_KEY;
 
 router.post('/', ((req, res) => {
-    const city = req.body.city;
-    const country = req.body.country;
+    const lat = req.body.lat;
+    const lon = req.body.lon;
 
-    if (!city && city.trim() === '') {
-        res.json(errorResponse.create('Please provide a city!'));
+    if ((!lat || lat.trim() === '') || (!lon || lon.trim() === '')) {
+        res.json(errorResponse.create('Please provide coordinates!'));
     }
 
-    const url = `http://api.geonames.org/searchJSON?formatted=true&name_equals=${city}&country=${country}&maxRows=10&lang=en&style=medium&username=${userName}`
+    const url = `https://api.weatherbit.io/v2.0/forecast/daily?days=5&lat=${lat}&lon=${lon}&key=${apiKey}`
     fetch(url)
         .then((response) => {
             return response.json();
         })
         .then((json) => {
-            if (json.totalResultsCount > 0) {
-                const foundCities = [];
-                json.geonames.forEach(element => {
-                    const result = geonameResponse.create(
-                        element.name,
-                        element.adminName1,
-                        element.lng,
-                        element.lat,
-                        element.population
+            if (json.data.length > 0) {
+                const forecast = [];
+                json.data.forEach(element => {
+                    const result = weatherbitResponse.create(
+                        element.wind_cdir,
+                        element.rh,
+                        element.max_temp,
+                        element.low_temp,
+                        element.datetime
                     );
-                    foundCities.push(result);
+                    forecast.push(result);
                 });
-                res.json({cities: foundCities});
+                res.json({forecast: forecast});
             } else {
                 res.json(errorResponse.create('No responses returned. Did you misspell the city?'));
             }
