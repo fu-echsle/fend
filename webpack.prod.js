@@ -38,7 +38,7 @@ module.exports = {
         ]
     },
     optimization: {
-        minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin()],
+        minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
     },
     plugins: [
         new ESLintPlugin(),
@@ -46,7 +46,7 @@ module.exports = {
             template: "./src/client/views/index.html",
             filename: "./index.html",
         }),
-        new CssMinimizerPlugin({
+        new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
         }),
         new WorkboxPlugin.GenerateSW(),
