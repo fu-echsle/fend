@@ -48,13 +48,13 @@ router.post('/', ((req, res) => {
                 });
                 res.json({forecast: forecast});
             } else {
-                res.json(errorResponse.create('No responses returned. Did you misspell the city?'));
+                res.json(errorResponse.create('No responses returned. Are you sure you\'ve picked the right coordinates?'));
             }
         })
         .catch(reason => {
-            console.log('Fetching data from geonames failed.');
+            console.log('Fetching data from weatherbits failed.');
             console.log(reason);
-            res.json(errorResponse.create('Fetching data from geonames failed. Check the server log for more info.'));
+            res.json(errorResponse.create('Fetching data from weatherbits failed. Check the server log for more info.'));
         });
 }));
 
