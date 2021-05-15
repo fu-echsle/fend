@@ -1,6 +1,8 @@
 const errorResponse = require('../responses/errorResponse');
 const geonameResponse = require('../responses/geonameResponse');
 
+const querystring = require('querystring');
+
 const express = require('express');
 const router = express.Router();
 
@@ -28,7 +30,7 @@ router.post('/', ((req, res) => {
         res.json(errorResponse.create('Please provide a city!'));
     }
 
-    const url = `http://api.geonames.org/searchJSON?formatted=true&name_equals=${city}&country=${country}&maxRows=10&lang=en&style=medium&username=${userName}`
+    const url = `http://api.geonames.org/searchJSON?formatted=true&name_equals=${querystring.escape(city)}&country=${querystring.escape(country)}&maxRows=10&lang=en&style=medium&username=${userName}`
     fetch(url)
         .then((response) => {
             return response.json();
