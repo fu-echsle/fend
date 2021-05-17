@@ -19,66 +19,58 @@
 <header>
     <div class="logo">
         <img src="logo.svg" alt="Logo" title="Logo Yvonne Vogt"/>
+        <h1>Travel planner</h1>
     </div>
     <div class="nav">
     </div>
 </header>
 <main>
+    <aside>
+        <h1>New Destination</h1>
+    </aside>
     <section>
-        <h1>Sentiment analyzer</h1>
-        <form onsubmit="return Client.handleSentiment(event)">
+        <label for="picker-collapse"><h2>1. Pick a destination</h2></label>
+        <input type="checkbox" id="picker-collapse" class="collapsible-trigger">
+        <form onsubmit="return Client.findDestination(event)" class="collapsible">
             <p>
-                Enter the text to analyze ...
+                Provide the city you want to visit ...
             </p>
-            <input type="text" id="text" name="text" value="" placeholder="Text to analyze"/>
+            <input type="text" id="city" name="city" value="" placeholder="City you want to visit"/>
             <p>
-                ... and select the language of your text.
+                ... and the country.
             </p>
-            <select id="sentimentLanguage" name="sentimentLanguage">
-                <option value="en">English</option>
-                <option value="de">German</option>
-                <option value="fr">French</option>
-                <option value="it">Italian</option>
+            <select id="country" name="country">
+                <option value="gb">Great Britain</option>
+                <option value="de">Germany</option>
+                <option value="fr">France</option>
+                <option value="it">Italy</option>
+                <option value="">... more to come</option>
             </select>
-            <input type="submit" name="" value="submit" onclick="return Client.handleSentiment(event)"
-                   onsubmit="return Client.handleSentiment(event)">
+            <input type="submit" name="" value="submit" onclick="return Client.findDestination(event)"
+                   onsubmit="return Client.findDestination(event)">
         </form>
     </section>
-    <section>
-        <h1>Text analyzer</h1>
-        <form class="" onsubmit="return Client.handleSummarization(event)">
-            <p>
-                Enter the URL you want to analyze ...
-            </p>
-            <input id="url" type="text" name="url" value="" placeholder="Article URL"/>
-            <p>
-                ... and specify how many sentences you want the result to be summarized to.
-            </p>
-            <select id="sentences" name="sentences">
-                <option value="5">5 (condensed down, might not be the best result)</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10 (might be too verbose)</option>
-            </select>
-            <input type="submit" name="" value="submit" onclick="return Client.handleSummarization(event)"
-                   onsubmit="return Client.handleSummarization(event)">
-        </form>
+    <section id="destinations">
+        <label for="destinations-collapse"><h2>2. Chose the one you looked for</h2></label>
+        <input type="checkbox" id="destinations-collapse" class="collapsible-trigger">
+        <div id="destinationList" class="collapsible">
+            <div class="resultWrapper"></div>
+        </div>
     </section>
-    <section>
-        <div class="summary result">
-            <h1>Detected Language:</h1>
-            <p id="language"></p>
-            <h1>Summary:</h1>
-            <p id="summary"></p>
+    <section id="forecast">
+        <label for="forecast-collapse"><h2>Weather forecast for your destination</h2></label>
+        <input type="checkbox" id="forecast-collapse" class="collapsible-trigger">
+        <div id="forecastList" class="collapsible">
+            <div class="forecastWrapper"></div>
         </div>
-        <div class="sentiment result">
-            sentiment
-        </div>
-        <div id="spinner">
-            <p>Loading, please wait ...</p>
-            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+    </section>
+    <section id="spinner">
+        <p>Loading, please wait ...</p>
+        <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
     </section>
 </main>
