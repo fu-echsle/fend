@@ -30,11 +30,59 @@ section {
     margin: 50px auto;
 
     h1 {
+        font-size: 2em;
         margin-top: 20px;
         margin-bottom: 5px;
     }
-
-    div.result {
-        display: none;
+    h2 {
+        font-size: 1.5em;
     }
+    h3 {
+        font-size: 1.3em;
+    }
+}
+
+#destinations {
+    display: none;
+
+    #destinationList {
+        .resultWrapper > div {
+            background-color: $cLight;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    }
+}
+
+#forecast {
+    display: none;
+
+    #forecastList {
+        .forecastWrapper > div {
+            background-color: $cLight;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    }
+}
+
+#spinner {
+    display: none;
+}
+
+label {
+    cursor: pointer;
+}
+
+.collapsible-trigger {
+    display: none;
+}
+
+.collapsible {
+    display: block;
+}
+:checked + .collapsible {
+    display: none;
 }
