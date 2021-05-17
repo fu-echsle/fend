@@ -18,6 +18,13 @@ router.use((req, res, next) => {
     next();
 });
 
+const cors = require('cors');
+const corsOptions = {
+    origin: process.env.FRONTEND_URL,
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+router.use(cors(corsOptions));
+
 const apiKey = process.env.WEATHERBIT_API_KEY;
 
 router.post('/', ((req, res) => {

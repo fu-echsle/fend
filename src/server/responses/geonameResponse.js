@@ -1,7 +1,8 @@
-const create = (name, state, lng, lat, population) => {
+const create = (name, state, type, lng, lat, population) => {
     return {
         name: name,
         state: state,
+        type: type,
         lng: lng,
         lat: lat,
         population: population
