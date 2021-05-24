@@ -35,7 +35,7 @@ router.post('/', ((req, res) => {
         res.json(errorResponse.create('Please provide coordinates!'));
     }
 
-    const url = `https://api.weatherbit.io/v2.0/forecast/daily?days=5&lat=${lat}&lon=${lon}&key=${apiKey}`
+    const url = `https://api.weatherbit.io/v2.0/forecast/daily?days=10&lat=${lat}&lon=${lon}&key=${apiKey}`
     fetch(url)
         .then((response) => {
             return response.json();
