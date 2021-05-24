@@ -30,13 +30,12 @@ router.use(cors(corsOptions));
 const apiKey = process.env.PIXABAY_API_KEY;
 
 router.post('/', ((req, res) => {
-    const city = req.body.city;
-
-    if (!city || city.trim() === '') {
-        res.json(errorResponse.create('Please provide a city!'));
+    const query = req.body.query;
+    if (!query || query.trim() === '') {
+        res.json(errorResponse.create('Please provide a destination!'));
     }
 
-    const url = `https://pixabay.com/api/?key=${apiKey}&safesearch=true&per_page=10&image_type=photo&q=${querystring.escape(city)}`
+    const url = `https://pixabay.com/api/?key=${apiKey}&safesearch=true&per_page=5&image_type=photo&q=${querystring.escape(query)}`;
     fetch(url)
         .then((response) => {
             return response.json();
@@ -46,6 +45,7 @@ router.post('/', ((req, res) => {
                 const images = [];
                 json.hits.forEach(element => {
                     const result = pixabayResponse.create(
+                        element.tags,
                         element.webformatURL,
                         element.previewURL,
                         element.likes,
@@ -56,7 +56,7 @@ router.post('/', ((req, res) => {
                 });
                 res.json({images: images});
             } else {
-                res.json(errorResponse.create('No responses returned. Did you misspell the city?'));
+                res.json(errorResponse.create('No images found :-('));
             }
         })
         .catch(reason => {
