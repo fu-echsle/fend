@@ -1,4 +1,9 @@
+import {toggleVisibility} from './helpers';
+
 function pickDestionation(destination) {
+    const parent = document.querySelector('#destinations');
+    toggleVisibility(parent, false);
+
     const resultSection = document.getElementById('forecast');
     const resultContainer = document.getElementById('forecastList');
     const spinnerContainer = document.getElementById('spinner');
