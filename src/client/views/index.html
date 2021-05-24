@@ -25,43 +25,63 @@
     </div>
 </header>
 <main>
-    <aside>
+    <aside id="head">
         <h1>New Destination</h1>
     </aside>
-    <section>
-        <label for="picker-collapse"><h2>1. Pick a destination</h2></label>
-        <input type="checkbox" id="picker-collapse" class="collapsible-trigger">
-        <form onsubmit="return Client.findDestination(event)" class="collapsible">
-            <p>
-                Provide the city you want to visit ...
-            </p>
-            <input type="text" id="city" name="city" value="" placeholder="City you want to visit"/>
-            <p>
-                ... and the country.
-            </p>
-            <select id="country" name="country">
-                <option value="gb">Great Britain</option>
-                <option value="de">Germany</option>
-                <option value="fr">France</option>
-                <option value="it">Italy</option>
-                <option value="">... more to come</option>
-            </select>
-            <input type="submit" name="" value="submit" onclick="return Client.findDestination(event)"
-                   onsubmit="return Client.findDestination(event)">
-        </form>
+    <section id="start">
+        <h2>Pick a destination</h2>
+        <div>
+            <form onsubmit="return Client.findDestination(event)">
+                <p>
+                    Provide the city you want to visit ...
+                </p>
+                <input type="text" id="city" name="city" value="" placeholder="City you want to visit"/>
+                <p>
+                    ... and the country.
+                </p>
+                <select id="country" name="country">
+                    <option value="gb">Great Britain</option>
+                    <option value="de" selected>Germany</option>
+                    <option value="fr">France</option>
+                    <option value="it">Italy</option>
+                    <option value="">... more to come</option>
+                </select>
+                <p>
+                    When do you plan to visit?
+                </p>
+                <input type="date" id="dateStart" name="dateStart" value=""/>
+                <p>
+                    ... to ...
+                </p>
+                <input type="date" id="dateEnd" name="dateEnd" value=""/>
+                <input type="submit" name="submit" value="Lookup Destination"
+                       onclick="return Client.findDestination(event)"
+                       onsubmit="return Client.findDestination(event)">
+            </form>
+        </div>
     </section>
     <section id="destinations">
-        <label for="destinations-collapse"><h2>2. Chose the one you looked for</h2></label>
-        <input type="checkbox" id="destinations-collapse" class="collapsible-trigger">
-        <div id="destinationList" class="collapsible">
+        <h2>Chose the one you've been looking for</h2>
+        <div id="destinationList">
             <div class="resultWrapper"></div>
         </div>
     </section>
+    <section id="images">
+        <h2>Images</h2>
+        <div id="imagesList">
+            <div class="imagesWrapper"></div>
+        </div>
+    </section>
     <section id="forecast">
-        <label for="forecast-collapse"><h2>Weather forecast for your destination</h2></label>
-        <input type="checkbox" id="forecast-collapse" class="collapsible-trigger">
-        <div id="forecastList" class="collapsible">
+        <h2>Weather forecast</h2>
+        <div id="forecastList">
             <div class="forecastWrapper"></div>
+        </div>
+    </section>
+    <section id="previous">
+        <h2>Previous searches</h2>
+        <div id="previousList">
+            <div class="previousWrapper"></div>
         </div>
     </section>
     <section id="spinner">
@@ -76,6 +96,10 @@
 </main>
 <footer>
     <p>&copy; 2021 Yvonne Vogt</p>
+    <p>
+        This page uses <a href="https://fonts.google.com/icons" target="_blank">Material icons</a> by Google,
+        licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0.html" target="_blank">Apache license 2.0</a>
+    </p>
 </footer>
 </body>
 </html>
