@@ -49,6 +49,7 @@ router.post('/', ((req, res) => {
                     const result = geonameResponse.create(
                         element.name,
                         element.adminName1,
+                        element.countryName,
                         element.fclName,
                         element.lng,
                         element.lat,
