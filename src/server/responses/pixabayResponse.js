@@ -1,5 +1,6 @@
-const create = (imageUrl, previewURL, likes, comments, pageURL) => {
+const create = (tags, imageUrl, previewURL, likes, comments, pageURL) => {
     return {
+        tags: tags,
         imageUrl: imageUrl,
         previewURL: previewURL,
         likes: likes,
