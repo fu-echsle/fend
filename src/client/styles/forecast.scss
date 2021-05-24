@@ -1,0 +1,13 @@
+#forecast {
+  display: none;
+  grid-area: forecast;
+
+  #forecastList {
+    .forecastWrapper > div {
+      background-color: $cLight;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 10px;
+    }
+  }
+}

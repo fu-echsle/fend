@@ -1,0 +1,26 @@
+#images {
+  display: none;
+  grid-area: img;
+
+  #imagesList {
+    .imagesWrapper > div {
+      background-color: $cLight;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 10px;
+
+      .likes {
+        padding-left: 20px;
+        background-image: url("../media/like.svg");
+        background-size: 16px;
+        background-repeat: no-repeat;
+      }
+      .comments {
+        padding-left: 20px;
+        background-image: url("../media/comment.svg");
+        background-size: 16px;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+}

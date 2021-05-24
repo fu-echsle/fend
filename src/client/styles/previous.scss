@@ -1,0 +1,12 @@
+#previous {
+  grid-area: prev;
+
+  #previousList {
+    .previousWrapper > div {
+      background-color: $cLight;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 10px;
+    }
+  }
+}
