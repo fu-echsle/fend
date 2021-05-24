@@ -1,7 +1,11 @@
 import {pickDestionation} from './pickDestination';
+import {showImages} from './showImages';
+import {addToLocalStorage, toggleVisibility} from './helpers';
+import {showPreviousSearches} from './showPreviousSearches';
 
 function findDestination(event) {
     event.preventDefault();
+    const parent = document.querySelector('#start');
 
     // check what text was put into the form field
     const city = document.getElementById('city').value;
@@ -9,6 +13,10 @@ function findDestination(event) {
     const resultSection = document.getElementById('destinations');
     const resultContainer = document.getElementById('destinationList');
     const spinnerContainer = document.getElementById('spinner');
+
+    document.querySelectorAll('#images,#forecast').forEach(elem => {
+        elem.style.display = 'none';
+    });
 
     resultSection.style.display = 'none';
     spinnerContainer.style.display = 'inherit';
@@ -32,9 +40,13 @@ function findDestination(event) {
         .then(function (res) {
             if (res.error) {
                 spinnerContainer.style.display = 'none';
+                toggleVisibility(parent, true);
                 alert(`The server returned an error message: ${res.error}`);
             } else {
-                resultContainer.replaceChild(listResults(res), document.querySelector('.resultWrapper'));
+                toggleVisibility(parent, false);
+                toggleVisibility(document.querySelector('#destinations'), true);
+
+                resultContainer.replaceChild(listResults(res, city, country), document.querySelector('.resultWrapper'));
 
                 resultSection.style.display = 'inherit';
                 spinnerContainer.style.display = 'none';
@@ -47,7 +59,9 @@ function findDestination(event) {
         });
 }
 
-const listResults = (res) => {
+const listResults = (res, city, country) => {
+    const dateStart = document.getElementById('dateStart').value;
+    const dateEnd = document.getElementById('dateEnd').value;
     const fragment = document.createDocumentFragment();
     const resultWrapper = document.createElement('div');
 
@@ -66,6 +80,9 @@ const listResults = (res) => {
         newElem.appendChild(type);
         newElem.addEventListener('click', () => {
             pickDestionation(elem);
+            showImages(city, country);
+            addToLocalStorage(elem.name, elem.countryName, dateStart, dateEnd);
+            showPreviousSearches();
         });
 
         resultWrapper.appendChild(newElem);
