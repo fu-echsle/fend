@@ -26,6 +26,8 @@ body {
 }
 
 main {
+  padding-left: 5px;
+  padding-right: 5px;
   flex: 2;
   display: grid;
   grid-template-rows: repeat(6, auto);
