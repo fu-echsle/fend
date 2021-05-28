@@ -16,11 +16,15 @@ As we don't want to share our secret api key, this file is included in the `.git
 * Create a file called `.env`.
 * Add your data
 ```
-API_KEY=[TOP_SECRET_API_KEY]
+GEONAMES_USER=[TOP_SECRET_USER_NAME]
+WEATHERBIT_API_KEY=[TOP_SECRET_WEATHERBIT_API_KEY]
+PIXABAY_API_KEY=[TOP_SECRET_PIXABAY_API_KEY]
+SERVER_URL=http://localhost:8081
+FRONTEND_URL=http://localhost:8080
 ```
 
 ## Testing the App
-`yarn dev` will start up the backend (`node src/server/index.js`) and the frontend (`webpack serve --config webpack.dev.js --open`).  
+`yarn dev` will start up the backend (`node src/server/server.js`) and the frontend (`webpack serve --config webpack.dev.js --open`).  
 The last part (`--open`) will start a new tab in your browser and load the web app. The app will run on http://localhost:8080, 
 the backend on http://localhost:8081. 
 
@@ -35,10 +39,3 @@ This will start the service on http://localhost:8081 for you.
 
 ## Run the automated tests
 You can run the tests with `yarn test`. There is only one test at the moment, and it doesn't do much. But it's there at least.
-
-## Some last words ...
-The first part uses a sentiment analysis that I could not force seeing irony no matter how hard I tried. 
-I guess irony is still too much to ask an AI for.  
-
-Next to the Language Detection API, I'm using the summarization API to condense the article to some sentences. 
-The results are ... not the best possible. Don't shoot the messenger, I'm just fetching the API.

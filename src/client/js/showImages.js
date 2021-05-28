@@ -1,11 +1,17 @@
-function showImages(city) {
+import {showErrorToast} from './helpers';
+
+/**
+ * Fetch example images after picking the destination by city name. Chances are you'll not find what you're looking for
+ * because you can't provide details like country.
+ * @param city
+ */
+const showImages = (city) => {
     const resultSection = document.getElementById('images');
     const resultContainer = document.getElementById('imagesList');
     const spinnerContainer = document.getElementById('spinner');
 
     spinnerContainer.style.display = 'inherit';
 
-    console.log('::: Form Submitted :::');
     fetch('http://localhost:8081/pixabay', {
         method: 'POST',
         credentials: 'same-origin',
@@ -17,7 +23,6 @@ function showImages(city) {
         })
     })
         .then(res => {
-            console.log(res);
             return res.json();
         })
         .then(function (res) {
@@ -35,10 +40,15 @@ function showImages(city) {
         .catch(reason => {
             resultSection.style.display = 'none';
             spinnerContainer.style.display = 'none';
-            alert(reason.message);
+            showErrorToast(reason.message);
         });
-}
+};
 
+/**
+ * Create a document fragment to replace the UI without flickering.
+ * @param res
+ * @returns {DocumentFragment}
+ */
 const listImages = (res) => {
     const fragment = document.createDocumentFragment();
     const resultWrapper = document.createElement('div');
@@ -81,6 +91,11 @@ const listImages = (res) => {
     return fragment;
 };
 
+/**
+ * Show an error in case pixabay couldn't find any images.
+ * @param res
+ * @returns {DocumentFragment}
+ */
 const showError = (res) => {
     const fragment = document.createDocumentFragment();
     const resultWrapper = document.createElement('div');

@@ -1,3 +1,7 @@
+/**
+ * Express controller for weatherbit route.
+ */
+
 const errorResponse = require('../responses/errorResponse');
 const weatherbitResponse = require('../responses/weatherbitResponse');
 
@@ -33,6 +37,7 @@ router.post('/', ((req, res) => {
 
     if ((!lat || lat.trim() === '') || (!lon || lon.trim() === '')) {
         res.json(errorResponse.create('Please provide coordinates!'));
+        return;
     }
 
     const url = `https://api.weatherbit.io/v2.0/forecast/daily?days=10&lat=${lat}&lon=${lon}&key=${apiKey}`

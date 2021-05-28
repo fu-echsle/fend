@@ -1,3 +1,7 @@
+/**
+ * Express controller for geonames route
+ */
+
 const errorResponse = require('../responses/errorResponse');
 const geonameResponse = require('../responses/geonameResponse');
 
@@ -35,6 +39,7 @@ router.post('/', ((req, res) => {
 
     if (!city && city.trim() === '') {
         res.json(errorResponse.create('Please provide a city!'));
+        return;
     }
 
     const url = `http://api.geonames.org/searchJSON?formatted=true&name_equals=${querystring.escape(city)}&country=${querystring.escape(country)}&maxRows=10&lang=en&style=medium&username=${userName}`

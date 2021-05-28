@@ -11,5 +11,9 @@ form {
         box-sizing: border-box;
         border-radius: 5px;
         color: $cDark;
+
+        &:hover {
+            background-color: $cAccentuation;
+        }
     }
 }

@@ -15,7 +15,7 @@ app.use(cors(corsOptions));
 
 /**
  * routes/endpoints
-*/
+ */
 const geonames = require('./routes/geonames');
 const pixabay = require('./routes/pixabay');
 const weatherbit = require('./routes/weatherbit');
@@ -25,11 +25,6 @@ app.use('/weatherbit', weatherbit);
 
 console.log(__dirname);
 
-// designates what port the app will listen to for incoming requests
-app.listen(8081,  () => {
-    console.log('Example app listening on port 8081!');
-});
-
 app.get('/', (req, res) => {
     res.sendFile('dist/index.html');
 });
@@ -37,3 +32,5 @@ app.get('/', (req, res) => {
 app.get('/health', (req, res) =>  {
     res.send({message: "I'm healthy. How about you?"})
 });
+
+module.exports = app;

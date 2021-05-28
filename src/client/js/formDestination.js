@@ -1,9 +1,13 @@
-import {pickDestionation} from './pickDestination';
+import {pickDestination} from './pickDestination';
 import {showImages} from './showImages';
-import {addToLocalStorage, toggleVisibility} from './helpers';
+import {addToLocalStorage, showErrorToast, toggleVisibility} from './helpers';
 import {showPreviousSearches} from './showPreviousSearches';
 
-function findDestination(event) {
+/**
+ * Looks up destinations by country (iso code) and city name.
+ * @param event form submission event via button or key.
+ */
+const findDestination = (event) => {
     event.preventDefault();
     const parent = document.querySelector('#start');
 
@@ -21,7 +25,6 @@ function findDestination(event) {
     resultSection.style.display = 'none';
     spinnerContainer.style.display = 'inherit';
 
-    console.log('::: Form Submitted :::');
     fetch('http://localhost:8081/geonames', {
         method: 'POST',
         credentials: 'same-origin',
@@ -34,14 +37,13 @@ function findDestination(event) {
         })
     })
         .then(res => {
-            console.log(res);
             return res.json();
         })
         .then(function (res) {
             if (res.error) {
                 spinnerContainer.style.display = 'none';
                 toggleVisibility(parent, true);
-                alert(`The server returned an error message: ${res.error}`);
+                showErrorToast(`The server returned an error message: ${res.error}`);
             } else {
                 toggleVisibility(parent, false);
                 toggleVisibility(document.querySelector('#destinations'), true);
@@ -55,10 +57,17 @@ function findDestination(event) {
         .catch(reason => {
             resultSection.style.display = 'none';
             spinnerContainer.style.display = 'none';
-            alert(reason.message);
+            showErrorToast(reason.message);
         });
-}
+};
 
+/**
+ * Create a document fragment to replace the UI without flickering.
+ * @param res
+ * @param city
+ * @param country
+ * @returns {DocumentFragment}
+ */
 const listResults = (res, city, country) => {
     const dateStart = document.getElementById('dateStart').value;
     const dateEnd = document.getElementById('dateEnd').value;
@@ -79,7 +88,7 @@ const listResults = (res, city, country) => {
         newElem.appendChild(state);
         newElem.appendChild(type);
         newElem.addEventListener('click', () => {
-            pickDestionation(elem);
+            pickDestination(elem);
             showImages(city, country);
             addToLocalStorage(elem.name, elem.countryName, dateStart, dateEnd);
             showPreviousSearches();

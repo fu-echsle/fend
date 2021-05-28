@@ -1,4 +1,4 @@
-import { pickDestionation } from './js/pickDestination';
+import { pickDestination } from './js/pickDestination';
 import { findDestination } from './js/formDestination';
 
 import './styles/base.scss';
@@ -14,6 +14,9 @@ import './media/collapse.svg';
 import {toggleVisibility} from './js/helpers';
 import {showPreviousSearches} from './js/showPreviousSearches';
 
+/**
+ * Set up some behaviour of the UI.
+ */
 const initialize = () => {
     const sectionStart = document.querySelector('#start');
     const sectionDestinations = document.querySelector('#destinations');
@@ -47,6 +50,6 @@ const initialize = () => {
 initialize();
 
 export {
-    pickDestionation,
+    pickDestination,
     findDestination
 };

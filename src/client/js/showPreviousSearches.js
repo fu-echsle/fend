@@ -1,6 +1,9 @@
 import {getFromLocalStorage} from './helpers';
 
-function showPreviousSearches() {
+/**
+ * Fetch previous searches from the browser's localStorage and display them if found.
+ */
+const showPreviousSearches = () => {
     const resultContainer = document.getElementById('previousList');
     const spinnerContainer = document.getElementById('spinner');
 
@@ -21,8 +24,13 @@ function showPreviousSearches() {
         resultContainer.replaceChild(renderPreviousSearches(res), document.querySelector('.previousWrapper'));
     }
     spinnerContainer.style.display = 'none';
-}
+};
 
+/**
+ * Create a document fragment to replace the UI without flickering.
+ * @param res
+ * @returns {DocumentFragment}
+ */
 const renderPreviousSearches = (res) => {
     const fragment = document.createDocumentFragment();
     const resultWrapper = document.createElement('div');

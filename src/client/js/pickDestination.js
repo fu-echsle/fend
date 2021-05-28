@@ -1,6 +1,10 @@
-import {toggleVisibility} from './helpers';
+import {showErrorToast, toggleVisibility} from './helpers';
 
-function pickDestionation(destination) {
+/**
+ * Pick one of the destinations geonames returned in its list. Fetch the weather with the latitude and longitude.
+ * @param destination
+ */
+const pickDestination = (destination) => {
     const parent = document.querySelector('#destinations');
     toggleVisibility(parent, false);
 
@@ -10,7 +14,6 @@ function pickDestionation(destination) {
 
     spinnerContainer.style.display = 'inherit';
 
-    console.log('::: Form Submitted :::');
     fetch('http://localhost:8081/weatherbit', {
         method: 'POST',
         credentials: 'same-origin',
@@ -23,13 +26,12 @@ function pickDestionation(destination) {
         })
     })
         .then(res => {
-            console.log(res);
             return res.json();
         })
         .then(function (res) {
             if(res.error) {
                 spinnerContainer.style.display = 'none';
-                alert(`The server returned an error message: ${res.error}`);
+                showErrorToast(`The server returned an error message: ${res.error}`);
             } else {
                 resultContainer.replaceChild(listForecast(res), document.querySelector('.forecastWrapper'));
 
@@ -40,10 +42,15 @@ function pickDestionation(destination) {
         .catch(reason => {
             resultSection.style.display = 'none';
             spinnerContainer.style.display = 'none';
-            alert(reason.message);
+            showErrorToast(reason.message);
         });
-}
+};
 
+/**
+ * Create a document fragment to replace the UI without flickering.
+ * @param res
+ * @returns {DocumentFragment}
+ */
 const listForecast = (res) => {
     const fragment = document.createDocumentFragment();
     const resultWrapper = document.createElement('div');
@@ -73,4 +80,4 @@ const listForecast = (res) => {
     return fragment;
 };
 
-export {pickDestionation};
+export {pickDestination};

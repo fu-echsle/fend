@@ -1,3 +1,5 @@
+import Toastify from 'toastify-js';
+
 /**
  * Toggles the visibility of the first div below a parent (or sets it if boolean visible is given).
  * @param parent
@@ -72,4 +74,20 @@ const getFromLocalStorage = () => {
     }
 };
 
-export {toggleVisibility, addToLocalStorage, getFromLocalStorage};
+/**
+ * Render an error toast (without disappearing automatically).
+ * @param message
+ */
+const showErrorToast = (message) => {
+    Toastify({
+        text: message,
+        duration: -1,
+        close: true,
+        gravity: 'top',
+        position: 'right',
+        backgroundColor: 'linear-gradient(to right, #f00, #900)',
+        stopOnFocus: true
+    }).showToast();
+};
+
+export {toggleVisibility, addToLocalStorage, getFromLocalStorage, showErrorToast};

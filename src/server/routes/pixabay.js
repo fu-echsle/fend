@@ -1,3 +1,7 @@
+/**
+ * Express controller for pixabay route.
+ */
+
 const errorResponse = require('../responses/errorResponse');
 const pixabayResponse = require('../responses/pixabayResponse');
 
@@ -33,6 +37,7 @@ router.post('/', ((req, res) => {
     const query = req.body.query;
     if (!query || query.trim() === '') {
         res.json(errorResponse.create('Please provide a destination!'));
+        return;
     }
 
     const url = `https://pixabay.com/api/?key=${apiKey}&safesearch=true&per_page=5&image_type=photo&q=${querystring.escape(query)}`;
